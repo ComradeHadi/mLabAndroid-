@@ -28,6 +28,7 @@ dependencies {
     implementation 'com.koushikdutta.ion:ion:2.+'
 
     implementation 'com.android.support:recyclerview-v7:28.+'
+    implementation 'me.ithebk:barchart:0.9'
 
 
     testImplementation 'junit:junit:4.12'

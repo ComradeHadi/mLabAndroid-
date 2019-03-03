@@ -4,6 +4,10 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="brand_analysis_text">#28bbbb</color>
-    <color name="brand_analysis_background">#ffffff</color>
+    <color name="brand_analysis_text">#ffffff</color>
+    <color name="brand_analysis_background">#28bbbb</color>
+    <color name="brand_reach_chart_one">#112c95</color>
+    <color name="brand_reach_chart_two">#ef7229</color>
+    <color name="brand_reach_chart_three">#144395</color>
+    <color name="brand_reach_chart_text">#d89c96</color>
 </resources>

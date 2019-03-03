@@ -1,5 +1,6 @@
 package app.comradehadi.mlabsapp.views;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,8 +10,13 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import app.comradehadi.mlabsapp.R;
 import app.comradehadi.mlabsapp.api.ServerCallClass;
+import me.ithebk.barchart.BarChart;
+import me.ithebk.barchart.BarChartModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        initialiseGraph();
     }
 
     @Override
@@ -57,5 +65,26 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void initialiseGraph(){
+        BarChart barChart = (BarChart) findViewById(R.id.bar_chart_vertical);
+        barChart.setBarMaxValue(100);
+
+        //Add single bar
+        BarChartModel barChartModel = new BarChartModel();
+        barChartModel.setBarValue(50);
+        barChartModel.setBarColor(Color.parseColor("#9C27B0"));
+        barChartModel.setBarTag(null); //You can set your own tag to bar model
+        barChartModel.setBarText("50");
+
+        barChart.addBar(barChartModel);
+
+//Add mutliple bar at once as list;
+        List<BarChartModel> barChartModelList = new ArrayList<>();
+
+//populate bar array list and add to barchart as a list.
+        barChart.addBar(barChartModelList);
     }
 }
