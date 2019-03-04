@@ -5,22 +5,37 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
+
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import app.comradehadi.mlabsapp.R;
+import app.comradehadi.mlabsapp.api.JsonFormatter;
 import app.comradehadi.mlabsapp.api.ServerCallClass;
+import app.comradehadi.mlabsapp.models.Analysis;
+import app.comradehadi.mlabsapp.models.BaseModel;
+import app.comradehadi.mlabsapp.presenters.BrandAdapter;
 import me.ithebk.barchart.BarChart;
 import me.ithebk.barchart.BarChartModel;
+
+import static app.comradehadi.mlabsapp.models.BaseModel.ONE_LAYER;
 
 public class MainActivity extends AppCompatActivity {
 
     ServerCallClass serverCallClass;
+    List<BaseModel> arrayList;
+    JsonObject serverObject;
+    Analysis analysis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,20 +44,29 @@ public class MainActivity extends AppCompatActivity {
 
         serverCallClass = new ServerCallClass(MainActivity.this);
 
-        serverCallClass.getBrandData();
+        analysis = serverCallClass.getBrandData();
+
+      //  Log.e("OUTPUT ANANAL", analysis.toString());
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
-        initialiseGraph();
+
+        setBrandData();
+
+
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.brandDataRecyclerView) ;
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        BrandAdapter brandAdapter = new BrandAdapter(arrayList);
+        recyclerView.setAdapter(brandAdapter);
+
+        //initialiseGraph();
     }
 
     @Override
@@ -86,5 +110,13 @@ public class MainActivity extends AppCompatActivity {
 
 //populate bar array list and add to barchart as a list.
         barChart.addBar(barChartModelList);
+    }
+
+    private void setBrandData(){
+        arrayList = new ArrayList<>();
+        arrayList.add(new BaseModel(analysis, BaseModel.ONE_LAYER));
+//        arrayList.add(new BaseModel("two", BaseModel.TWO_LAYERS));
+//        arrayList.add(new BaseModel("three", BaseModel.THREE_LAYERS));
+//        arrayList.add(new BaseModel("one", BaseModel.ONE_LAYER));
     }
 }

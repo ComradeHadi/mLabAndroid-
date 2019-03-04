@@ -8,6 +8,8 @@ public class Analysis {
     String text;
     Phrase phrase;
 
+    public Analysis() {
+    }
 
     public Analysis(String id, String title, String subTitle, String text, Phrase phrase) {
         this.id = id;
@@ -22,7 +24,7 @@ public class Analysis {
     }
 
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     public String getSubTitle() {
@@ -55,5 +57,17 @@ public class Analysis {
 
     public void setPhrase(Phrase phrase) {
         this.phrase = phrase;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Analysis{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", subTitle='" + subTitle + '\'' +
+                ", text='" + text + '\'' +
+                ", phrase=" + phrase +
+                '}';
     }
 }

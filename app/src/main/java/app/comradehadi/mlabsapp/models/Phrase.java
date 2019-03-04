@@ -6,10 +6,11 @@ public class Phrase {
     String winner;
     String delta;
 
-    public Phrase(String summary, String performance, String delta){
+    public Phrase(String summary, String performance, String winner, String delta){
 
         this.summary = summary;
         this.performance = performance;
+        this.winner = winner;
         this.delta = delta;
     }
 

@@ -12,19 +12,29 @@ import com.koushikdutta.ion.Ion;
 
 import com.mmstq.progressbargifdialog.ProgressBarGIFDialog;
 
+import app.comradehadi.mlabsapp.models.Analysis;
+import app.comradehadi.mlabsapp.store.LocalStore;
+
 public class ServerCallClass {
     Context context;
     ProgressBarGIFDialog.Builder progressBarGIFDialog;
+      Analysis serverResults;
+     JsonObject modifiedResults;
+     LocalStore localStore;
+
+
 
     public ServerCallClass(Context context) {
         this.context = context;
     }
 
 
-    public JsonObject getBrandData(){
+    public Analysis getBrandData(){
+        localStore = new LocalStore(context);
 
         progressBarGIFDialog= new ProgressBarGIFDialog.Builder((Activity)this.context);
-        JsonObject serverResults = null;
+
+
 
         Ion.with(this.context)
                 .load(URLs.GET_BRAND_DATA)
@@ -35,15 +45,12 @@ public class ServerCallClass {
 
                         if(result != null){
 
-                            Log.e("success", result.toString());
-//                            progressBarGIFDialog.clear();
 
-//                            if (result.get("status").getAsString().equalsIgnoreCase("Success")){
-//
-//                                new LocalStore(context).saveTaxBracketObjectAsString(result.get("data").getAsJsonObject(
-//
-//                                ).get("district").getAsJsonObject().toString());
-//                            }
+                           // modifiedResults = result;
+                            localStore.saveAnalysis(result);
+
+
+
 
 
                            }
@@ -54,8 +61,16 @@ public class ServerCallClass {
                             Toast.makeText(context, "An error occurred", Toast.LENGTH_LONG).show();
 
                         }
+                          Log.e("RESULTS ANALYSIS", serverResults.toString());
+
+
                     }
+
+
                 });
+
+
+        serverResults = new JsonFormatter().fetchAnalysisFromData(localStore.readAnalysis());
         return serverResults;
     }
 
